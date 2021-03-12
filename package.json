@@ -1,0 +1,13 @@
+{
+  "name": "rss_full_content_generetor",
+  "private": true,
+  "dependencies": {
+    "@rails/ujs": "^6.0.0",
+    "@rails/webpacker": "4.3.0",
+    "http-proxy-middleware": "^1.0.6"
+  },
+  "version": "0.1.0",
+  "devDependencies": {
+    "webpack-dev-server": "^3.11.2"
+  }
+}
