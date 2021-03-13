@@ -1,5 +1,5 @@
 # frozen_string_literal: true
-# class RssController < ApplicationController
+class RssController < ApplicationController
 #     skip_before_action :verify_authenticity_token
 #     def rss
 #         @rss = Source.find(params[:sources_id])
@@ -18,4 +18,4 @@
 #             .permit(:original_url, :title, :description, :img_url, :generated_url)
 #     end
 
-# end
+end
