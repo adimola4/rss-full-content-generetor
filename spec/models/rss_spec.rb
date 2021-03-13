@@ -36,7 +36,7 @@ RSpec.describe Rss, type: :model do
 
     it "should create 'filename' and put 'article' in it" do
         Rss.get_feed(rss_test)
-        expect(File.directory?("#{Rails.root}/tmp/rss_files/aaa/")).to be true
+        expect(File.filename("#{Rails.root}/tmp/rss_files/aaa/")).to be true
     end
 
     # it "tagging should do something" do
