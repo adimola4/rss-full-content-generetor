@@ -26,7 +26,7 @@ const ReadyModal = ({ rssData, generated_url }) => {
                              </div> 
                              <div className="notify-card-footer"> 
                                 <a href={generated_url} className="notify-card-btn btn-left" onClick={()=>navigator.clipboard.writeText("https://"+generated_url)}> RSS file </a>
-                                <a href="#" className="notify-card-btn btn-right" onClick= {()=> navigator.clipboard.writeText("https://"+generated_url)} > Copy link! </a>
+                                <button  className="notify-card-btn btn-right" onClick= {()=> navigator.clipboard.writeText("https://"+generated_url)} > Copy link! </button>
                              </div>
                                 
                     

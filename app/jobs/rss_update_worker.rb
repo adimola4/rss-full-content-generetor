@@ -8,4 +8,4 @@ class RssUpdateWorker
     logger.info "RssUpdateWorker"
     RssUpdater.new.run
   end
-  end
+end

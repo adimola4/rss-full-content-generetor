@@ -17,38 +17,40 @@ class Rss < ApplicationRecord
 
   def self.get_feed(rss)
     return nil if rss.nil?
-
     @articles = RssFetcher.new(rss).run
-    file_name = rss.title.gsub!(/\s+/, "")
-    bucket_name = if Rails.env.production?
-                    AWS["aws"]["dev"]["bucket"]
-                  else
-                    AWS["aws"]["prod"]["bucket"]
-                  end
-    url = bucket_name + ".s3." + AWS["aws"]["region"] + ".amazonaws.com/" + file_name + ".xml"
+    file_name = rss.title.gsub!(/\s+/, "") || rss.title
+    rss.generated_url = rss.initial_aws(file_name)
+    path_string = rss.create_rss_file(rss, @articles, file_name)
+    AwsUploader.new(rss.id, path_string).run
+    File.delete(path_string)
+  end
 
-    rss.generated_url = url
+  def initial_aws(file_name)
+    if Rails.env.production?
+      bucket_name = AWS["aws"]["dev"]["bucket"]
+    else
+      bucket_name = AWS["aws"]["prod"]["bucket"]
+    end
+    if file_name.nil?
+      puts "file_name",file_name
+    end
+    url = bucket_name + ".s3." + AWS["aws"]["region"] + ".amazonaws.com/" + file_name + ".xml"
+    return url
+  end
+
+  def create_rss_file(rss, articles, file_name)
     data = ApplicationController.render(
       template: "rss/rss",
-
-      assigns: { rss: rss, articles: @articles },
+      assigns: { rss: rss, articles: articles },
     )
-
-    # p Rails.root
     dir = Rails.root.join("tmp", "rss_files/aaa/")
     Dir.mkdir(dir) unless Dir.exist?(dir)
     path_string = dir.to_s + file_name.to_s + "3.xml"
     file = File.open(path_string, "wb")
     file.write(data)
     file.close
-
-    AwsUploader.new(rss.id, path_string).run
-    File.delete(path_string)
-    end
-
-      #   def self.update_rss(rss)
-      #     return if rss.nil? || rss.generated_url.length < 10
-      #     @articles = RssFetcher.new(rss).run
-
-      #   end
-    end
+    return path_string
+  end
+    
+    
+end

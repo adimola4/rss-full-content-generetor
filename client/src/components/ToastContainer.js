@@ -14,7 +14,7 @@ const ToastContainer = ({ toasts }) => {
   });
 
   return createPortal(
-    <animated.div classname="toast-container">
+    <animated.div className="toast-container">
       {transitions.map(({ item, key, props }) => (
 
         <Toast key={key} id={item.id} style={props}  toast_type={item.toast_type} data={item.content} >

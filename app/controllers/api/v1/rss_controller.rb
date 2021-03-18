@@ -16,40 +16,28 @@ module Api::V1
     end
 
     def create
-      
       if rss_params[:original_url].nil?
-        data = [{ "msg": "The url is not avalid RSS" }]
-        render json: data, status: :not_acceptable
+        render json: [{ "msg": "Url is required!" }], status: :not_acceptable
         return
       end
-      @found_rss = Rss.where(original_url: rss_params[:original_url])
 
-      
+      @found_rss = Rss.where(original_url: rss_params[:original_url])
 
       if @found_rss.empty?
         @rss = Rss.new(rss_params)
         response = RssInitializer.new(@rss).run
-        
-        if response.nil?
-
-          data = [{ "msg": "The url is not avalid RSS" }]
-          render json: data, status: :not_acceptable
+        if response.nil?          
+          render json: [{ "msg": "The url is not avalid RSS" }], status: :not_acceptable
           return
-         end
-
-        # p @rss.valid?
-        # p @rss.errors
-
+        end
         if @rss.save
 
           render json: @rss, status: :created
         else
-          data = [{ "msg": @rss.errors }]
-          render json: data, status: :unprocessable_entity
+          render json: [{ "msg": @rss.errors }], status: :unprocessable_entity
         end
       else
-        data = [{ "msg": "exsits rss" }, @found_rss[0]]
-        render json: data
+        render json: [{ "msg": "exsits rss" }, @found_rss[0]]
         return
       end
     end
@@ -57,7 +45,7 @@ module Api::V1
     def update
       @rss = Rss.find(params[:id])
       if @rss.update(rss_params)
-        render json: @rsss
+        render json: @rss
       else
         render json: @rss.errors, status: :unprocessable_entity
       end
@@ -69,10 +57,7 @@ module Api::V1
     end
 
     def ready
-      # @rss = Rss.where(original_url: rss_params[:original_url])
-      # return if @rss.length == 0
-      # # data = { "isready": @rss[0].isready }
-      # render json: { "isready": @rss[0].isready }
+
       puts "is ready", params[:rss][:id]
       @rss = Rss.find(params[:rss][:id])
       data = if @rss.generated_url.nil? || @rss.generated_url == "en-us" || @rss.generated_url == "en"
@@ -85,7 +70,6 @@ module Api::V1
 
       nil
     end
-    ###############################################################
 
     private
 
