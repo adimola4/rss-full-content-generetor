@@ -10,6 +10,7 @@ const ToastProvider = ({ children }) => {
 
   const addToast = useCallback(
     (content, toast_type) => {
+      console.log(content,toast_type);
       setToasts(toasts => [
         ...toasts,
         {

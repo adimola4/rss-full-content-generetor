@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
+import Clipboard from '../helpers/Clipboard';
 
 
 const ReadyModal = ({ rssData, generated_url }) => {
     
     
     const [rss, setRss] = useState(rssData);
+    
    
     
     return (
@@ -25,8 +27,8 @@ const ReadyModal = ({ rssData, generated_url }) => {
                                 </p >
                              </div> 
                              <div className="notify-card-footer"> 
-                                <a href={generated_url} className="notify-card-btn btn-left" onClick={()=>navigator.clipboard.writeText("https://"+generated_url)}> RSS file </a>
-                                <button  className="notify-card-btn btn-right" onClick= {()=> navigator.clipboard.writeText("https://"+generated_url)} > Copy link! </button>
+                                <a href={generated_url} className="notify-card-btn btn-left" onClick={Clipboard("https://"+generated_url)}> RSS file </a>
+                                <button  className="notify-card-btn btn-right" onClick= {Clipboard("https://"+generated_url)} > Copy link! </button>
                              </div>
                                 
                     

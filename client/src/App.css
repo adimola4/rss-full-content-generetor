@@ -418,7 +418,6 @@ line-height: 1.5em;
   color: #494e5c;
 } */
 .toast-container{
-  position: absolute;
   right: 0;
   top: 0;
   z-index: 1;

@@ -37,6 +37,7 @@ module Api::V1
           render json: [{ "msg": @rss.errors }], status: :unprocessable_entity
         end
       else
+        puts "exs exs"
         render json: [{ "msg": "exsits rss" }, @found_rss[0]]
         return
       end

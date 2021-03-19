@@ -42,8 +42,8 @@ const RssList = props => {
     useInterval(() =>{
       axios.post(`/api/v1/rss/ready/`,qs.stringify({rss:{id:generatedRss.id}}))
       .then(result =>{
-        console.log(result);  
-        console.log(result.data[0].generated_url);
+        // console.log(result);  
+        // console.log(result.data[0].generated_url);
         if(result.data[0].generated_url !== undefined){
           //addToast(result.data[0].generated_url,toast_type);
            setRssUrl(result.data[0].generated_url)
@@ -110,13 +110,8 @@ const RssList = props => {
                   setRss(rss)
                   setDelay(1000)                
                 }
-                
-                
-                
-
-                
               }else {
-                // console.log(res.data[1]);
+                console.log(res.data);
                 // setTimeout(() =>  setShowModal(true), 1500)
                 toast_type ="Exiest"
                 // generated_url_ready( res.data[1].id, toast_type)
@@ -126,6 +121,8 @@ const RssList = props => {
                   res.data[1].img_url,
                   res.data[1].description
                 ]
+                console.log(rss);
+
                 addToast(rss,toast_type);
                 setRss(rss)
               }

@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useToast } from "./ToastProvider";
 import { animated } from "react-spring";
+import Clipboard from '../helpers/Clipboard';
+
 
 
 
@@ -27,7 +29,7 @@ const Toast = ({ children, id, toast_type, data } ) => {
 
      <>
         {(() => {
-  
+  console.log(type);
            switch (type) {
               case 'Created':
                   return (
@@ -62,9 +64,9 @@ const Toast = ({ children, id, toast_type, data } ) => {
                             </div>
                             <div className="toast_content">
                                 <p className="toast_type">We found This RSS that match to your URL!</p>
-                                <p className="toast_message" onClick={ navigator.clipboard.writeText(data[1])}>Click here to copy URL</p>
+                                <p className="toast_message" onClick={ Clipboard("https://" + data[1])}>Click here to copy URL</p>
                             </div>
-                            <div className="toast_svg_copy" onClick={ navigator.clipboard.writeText(data[1])}>
+                            <div className="toast_svg_copy" onClick={ Clipboard("https://" + data[1])}>
                                 <svg xmlns="http://www.w3.org/2000/svg" className="toast_svg" xlink="http://www.w3.org/1999/xlink" version="1.1" x="0px" y="0px" viewBox="0 0 15.642 15.642" enableBackground="new 0 0 15.642 15.642" space="preserve">
                                     <g><g><path d="M920,902.5v-595c0-4.7-1.7-8.8-5.2-12.3c-3.5-3.5-7.6-5.2-12.3-5.2h-595c-4.7,0-8.8,1.7-12.3,5.2s-5.2,7.6-5.2,12.3v595c0,4.7,1.7,8.8,5.2,12.3c3.5,3.5,7.6,5.2,12.3,5.2h595c4.7,0,8.8-1.7,12.3-5.2C918.3,911.3,920,907.2,920,902.5z M990,307.5v595c0,24.1-8.6,44.7-25.7,61.8c-17.1,17.1-37.7,25.7-61.8,25.7h-595c-24.1,0-44.7-8.6-61.8-25.7c-17.1-17.1-25.7-37.7-25.7-61.8v-595c0-24.1,8.6-44.7,25.7-61.8c17.1-17.1,37.7-25.7,61.8-25.7h595c24.1,0,44.7,8.6,61.8,25.7C981.4,262.8,990,283.4,990,307.5z M780,97.5V185h-70V97.5c0-4.7-1.7-8.8-5.2-12.3s-7.6-5.2-12.3-5.2h-595c-4.7,0-8.8,1.7-12.3,5.2S80,92.8,80,97.5v595c0,4.7,1.7,8.8,5.2,12.3c3.5,3.5,7.6,5.2,12.3,5.2H185v70H97.5c-24.1,0-44.7-8.6-61.8-25.7C18.6,737.2,10,716.6,10,692.5v-595c0-24.1,8.6-44.7,25.7-61.8C52.8,18.6,73.4,10,97.5,10h595c24.1,0,44.7,8.6,61.8,25.7C771.4,52.8,780,73.4,780,97.5L780,97.5z"/></g></g>
                                 </svg> 
@@ -87,7 +89,7 @@ const Toast = ({ children, id, toast_type, data } ) => {
                             </div>
                             <div className="toast_content">
                                 <p className="toast_type">We found This RSS that match to your URL!</p>
-                                <p className="toast_message" onClick={ navigator.clipboard.writeText(data[1])}>Click here to copy URL</p>
+                                <p className="toast_message" onClick={ Clipboard("https://" + data[1])}>Click here to copy URL</p>
                             </div>
                             <div className="toast_close" onClick={ handleremove }>
                                 <svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.642 15.642" xlink="http://www.w3.org/1999/xlink" enableBackground="new 0 0 15.642 15.642">

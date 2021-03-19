@@ -2,7 +2,7 @@
 
 class Rss < ApplicationRecord
   # require_relative('../../../services/aws_uploader')
-  AWS = YAML.safe_load(File.new(Rails.root.join("gitignore", "aws-credentials.yml")))
+  # AWS = YAML.safe_load(File.new(Rails.root.join("gitignore", "aws-credentials.yml")))
 
   validates :title, presence: { base: "Title can't be blank!" }
   validates :title, length: { maximum: 255 }
@@ -27,14 +27,14 @@ class Rss < ApplicationRecord
 
   def initial_aws(file_name)
     if Rails.env.production?
-      bucket_name = AWS["aws"]["dev"]["bucket"]
+      bucket_name = ENV["AWS_PROD_BUCKET"].to_s
     else
-      bucket_name = AWS["aws"]["prod"]["bucket"]
+      bucket_name = ENV["AWS_DEV_BUCKET"].to_s
     end
     if file_name.nil?
       puts "file_name",file_name
     end
-    url = bucket_name + ".s3." + AWS["aws"]["region"] + ".amazonaws.com/" + file_name + ".xml"
+    url = bucket_name + ".s3." + ENV["AWS_REGION"].to_s + ".amazonaws.com/" + file_name + ".xml"
     return url
   end
 

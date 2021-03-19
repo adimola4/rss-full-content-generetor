@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import Clipboard from '../helpers/Clipboard';
 
 const RssCard = ({initialRssState,}) => {
     
@@ -19,7 +20,7 @@ const RssCard = ({initialRssState,}) => {
                    { rss.description }
                 </p>
                
-                <button className="rss-card-btn" onClick={ navigator.clipboard.writeText("https://" + rss.generated_url)}>click to copy</button>
+                <button className="rss-card-btn" onClick={()=>Clipboard("https://" + rss.generated_url)}>click to copy</button>
 
                 {/* <div class="toggle checkcross cont-bef-aft ">
                     <input id="checkcross<%= rss.id %>" type="checkbox" name="check" class="cont-bef-aft checkcrosss " value="false"/>
