@@ -1,5 +1,5 @@
 const Clipboard = (str)=> {
-    console.log(str);
+    // console.log(str);
     navigator.clipboard.writeText(str);
     return;
 }

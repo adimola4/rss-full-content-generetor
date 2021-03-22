@@ -26,7 +26,7 @@ const NewRss = ({ add_rss, initialRssState}) => {
         event.preventDefault()
         if (errors.length > 0)
         {
-          console.log("errors...",errors);
+          // console.log("errors...",errors);
           return;
         } 
         add_rss(rss)

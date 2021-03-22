@@ -33,8 +33,8 @@ const RssList = props => {
             setRsslist(res.data)
           } )
         } catch (err) {
-            console.log("err", err)
-            console.log(response)
+            // console.log("err", err)
+            // console.log(response)
         }
       }
       loadRss()
@@ -59,7 +59,7 @@ const RssList = props => {
       };
 
     const add_rss = rss => {
-        console.log(rss);
+        // console.log(rss);
         setLoading(true);
        
         setRssUrl(rss.url)
@@ -70,8 +70,8 @@ const RssList = props => {
         
         axios.post(`/api/v1/rss/ready/`,qs.stringify({rss:{id:id}}))
           .then(result =>{
-            console.log(result);  
-            console.log(result.data[0].generated_url);
+            // console.log(result);  
+            // console.log(result.data[0].generated_url);
             if(result.data[0].generated_url !== undefined){
               //addToast(result.data[0].generated_url,toast_type);
               // setTimeout(() =>  setShowModal(true), 1500)
@@ -88,7 +88,7 @@ const RssList = props => {
               }
             }))
             .then(res=>{
-              console.log(res.data);
+              // console.log(res.data);
               toast_type = "Created"
               if(res.status === 201)              
               {
@@ -111,7 +111,7 @@ const RssList = props => {
                   setDelay(1000)                
                 }
               }else {
-                console.log(res.data);
+                // console.log(res.data);
                 // setTimeout(() =>  setShowModal(true), 1500)
                 toast_type ="Exiest"
                 // generated_url_ready( res.data[1].id, toast_type)
@@ -121,7 +121,7 @@ const RssList = props => {
                   res.data[1].img_url,
                   res.data[1].description
                 ]
-                console.log(rss);
+                // console.log(rss);
 
                 addToast(rss,toast_type);
                 setRss(rss)

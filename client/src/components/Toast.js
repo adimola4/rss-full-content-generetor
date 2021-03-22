@@ -29,7 +29,7 @@ const Toast = ({ children, id, toast_type, data } ) => {
 
      <>
         {(() => {
-  console.log(type);
+//   console.log(type);
            switch (type) {
               case 'Created':
                   return (
