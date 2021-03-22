@@ -25,7 +25,7 @@ gem "bootsnap", ">= 1.4.2"
 
 gem "aws-sdk-s3", require: false
 gem "nokogiri", ">= 1.5.0"
-gem "sidekiq", "~> 6.1.0"
+gem 'sidekiq', '5.2.7'
 gem "sidekiq-cron", "~> 1.1"
 gem 'redis'
 
