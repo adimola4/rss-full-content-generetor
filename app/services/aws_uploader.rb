@@ -6,7 +6,7 @@ class AwsUploader
   # AWS = YAML.safe_load(File.new(Rails.root.join("gitignore", "aws-credentials.yml")))
 
   def initialize(rss_id, rss_location)
-      puts ENV["AWS_REGION"].to_s
+    puts ״דגכדגכדג״,ENV["AWS_ACCESS_KEY_ID"].to_s, ENV["AWS_REGION"].to_s
 
     @service = Aws::S3::Client.new(
       access_key_id: ENV["AWS_ACCESS_KEY_ID"].to_s,
