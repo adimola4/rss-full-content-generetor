@@ -43,8 +43,8 @@ class Rss < ApplicationRecord
       template: "rss/rss",
       assigns: { rss: rss, articles: articles },
     )
-    dir = Rails.root.join("tmp", "rss_files/aaa/")
-    Dir.mkdir(dir) unless Dir.exist?(dir)
+    
+    dir = File.dirname("#{Rails.root}/tmp/rss_files/aaa/")
     path_string = dir.to_s + file_name.to_s + "3.xml"
     file = File.open(path_string, "wb")
     file.write(data)
