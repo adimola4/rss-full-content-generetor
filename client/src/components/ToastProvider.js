@@ -2,7 +2,6 @@ import React, { useState, useContext, useCallback } from "react";
 import ToastContainer from "./ToastContainer";
 
 const ToastContext = React.createContext(null);
-
 let id = 1;
 
 const ToastProvider = ({ children }) => {

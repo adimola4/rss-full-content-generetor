@@ -18,8 +18,8 @@ class Rss < ApplicationRecord
   def self.get_feed(rss)
     return nil if rss.nil?
     @articles = RssFetcher.new(rss).run
-    file_name = rss.title.gsub!(/\s+/, "") || rss.title
-    rss.generated_url = rss.initial_aws(file_name)
+    file_name = rss.title unless  rss.title.nil?
+    rss.generated_url = rss.initial_aws(file_name) if  rss.generated_url.nil? 
     path_string = rss.create_rss_file(rss, @articles, file_name)
     AwsUploader.new(rss.id, path_string).run
     File.delete(path_string)
@@ -34,7 +34,7 @@ class Rss < ApplicationRecord
     if file_name.nil?
       puts "file_name",file_name
     end
-    url = bucket_name + ".s3." + ENV["AWS_REGION"].to_s + ".amazonaws.com/" + file_name + ".xml"
+    url = bucket_name + ".s3." + ENV["AWS_REGION"].to_s + ".amazonaws.com/rss_files" + file_name + "3.xml"
     return url
   end
 

@@ -25,19 +25,18 @@ module Api::V1
 
       if @found_rss.empty?
         @rss = Rss.new(rss_params)
+        #!!! add generated url in the first user response. 
         response = RssInitializer.new(@rss).run
         if response.nil?          
           render json: [{ "msg": "The url is not avalid RSS" }], status: :not_acceptable
           return
         end
         if @rss.save
-
           render json: @rss, status: :created
         else
           render json: [{ "msg": @rss.errors }], status: :unprocessable_entity
         end
       else
-        puts "exs exs"
         render json: [{ "msg": "exsits rss" }, @found_rss[0]]
         return
       end
@@ -58,7 +57,6 @@ module Api::V1
     end
 
     def ready
-
       puts "is ready", params[:rss][:id]
       @rss = Rss.find(params[:rss][:id])
       data = if @rss.generated_url.nil? || @rss.generated_url == "en-us" || @rss.generated_url == "en"
@@ -68,7 +66,6 @@ module Api::V1
                [{ "generated_url": @rss.generated_url }]
              end
       render json: data
-
       nil
     end
 

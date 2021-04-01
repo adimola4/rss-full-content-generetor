@@ -19,9 +19,11 @@ const RssList = props => {
   const [showModal, setShowModal] = useState(false);
   const [rssUrl, setRssUrl] = useState({});
   const [rss, setRss] = useState({});
+  const [generatedRssUrl, setGeneratedRssUrl] = useState({});
   const [generatedRss, setGeneratedRss] = useState({url:'',id:''});
   const [loading, setLoading ] = useState(false);
   const [delay, setDelay] = useState(null);
+  
 
     useEffect(() => {
 
@@ -42,53 +44,32 @@ const RssList = props => {
     useInterval(() =>{
       axios.post(`/api/v1/rss/ready/`,qs.stringify({rss:{id:generatedRss.id}}))
       .then(result =>{
-        // console.log(result);  
-        // console.log(result.data[0].generated_url);
         if(result.data[0].generated_url !== undefined){
-          //addToast(result.data[0].generated_url,toast_type);
+           setGeneratedRssUrl(result.data[0].generated_url)
            setRssUrl(result.data[0].generated_url)
            setTimeout(() =>  setShowModal(true), 1500)
+           setLoading(false)               
            setDelay(null) 
-          // setTimeout(()=> window.location.reload() , 100000) 
         }           
       }
       )
     }, delay)
+
     const initialRss = {
         url:'',
       };
 
     const add_rss = rss => {
-        // console.log(rss);
         setLoading(true);
-       
-        setRssUrl(rss.url)
-       // setTimeout(() =>  setShowModal(true), 3000)
+        setRssUrl(rss.url)       
        let toast_type = "INFO"
-       
-        function generated_url_ready(id, toast_type) {
-        
-        axios.post(`/api/v1/rss/ready/`,qs.stringify({rss:{id:id}}))
-          .then(result =>{
-            // console.log(result);  
-            // console.log(result.data[0].generated_url);
-            if(result.data[0].generated_url !== undefined){
-              //addToast(result.data[0].generated_url,toast_type);
-              // setTimeout(() =>  setShowModal(true), 1500)
-              // setTimeout(()=> window.location.reload() , 100000) 
-            }           
-          }
-          )
-        }
-      
         axios.post('/api/v1/rss', qs.stringify(
             {
               rss:{
                 original_url: rss.url
               }
             }))
-            .then(res=>{
-              // console.log(res.data);
+            .then(res=>{              
               toast_type = "Created"
               if(res.status === 201)              
               {
@@ -101,36 +82,38 @@ const RssList = props => {
                     res.data.img_url,
                     res.data.description
                   ]
-                  setTimeout(()=>addToast(rss,toast_type),2500);  
-                  
+                  console.log(rss[1]);
+                  setTimeout(()=>addToast(rss,toast_type),1000);  
                   setGeneratedRss({
                     ...generatedRss,
                     id: id
                   });
                   setRss(rss)
-                  setDelay(1000)                
+                  setGeneratedRssUrl(rss[1])
+                  setRssUrl(rss[1])                  
+                  setLoading(false) 
+                  
                 }
               }else {
-                // console.log(res.data);
-                // setTimeout(() =>  setShowModal(true), 1500)
                 toast_type ="Exiest"
-                // generated_url_ready( res.data[1].id, toast_type)
                 let rss = [
                   res.data[1].title,
                   res.data[1].generated_url,
                   res.data[1].img_url,
                   res.data[1].description
                 ]
-                // console.log(rss);
-
                 addToast(rss,toast_type);
                 setRss(rss)
+                setGeneratedRssUrl(rss[1])
+                setLoading(false)
               }
               setRsslist([...rsslist, res]);
             } )
             .catch( error => {
               toast_type = "Error"
               addToast( "We unable to complete your request, try anthor RSS URL.",toast_type);
+              setLoading(false)
+              setGeneratedRssUrl("Error")
             } )
        
       };
@@ -141,24 +124,21 @@ const RssList = props => {
 
 
   return (
-      <div>
-          <NewRss add_rss={add_rss} initialRssState={initialRss}/>
-          <hr className="hr"></hr>
+    <div className="main">
+          <NewRss add_rss={add_rss} initialRssState={initialRss} loading={loading} new_rss_url={generatedRssUrl} />
            { showModal && (
             <Modal onClose={() => setShowModal(false)}>
               <ReadyModal  rssData={rss} generated_url={rssUrl}/>
             </Modal>
           )} 
-          <div className="rss-list">
+        <div className="rss-list">
               {rsslist.map((rss, index) => (
-                // <li className="cards_item" key={index}>
-                //     {rss.title} | {rss.original_url} 
-                       <RssCard  initialRssState={rss} key={index}></RssCard>
-                // </li>
-            ))}
+                       <RssCard  initialRssState={rss} key={index}></RssCard>                
+              ))}
         </div>
     
-      </div>
+   
+    </div>
   )
 };
 export default RssList;

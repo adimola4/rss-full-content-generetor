@@ -14,7 +14,7 @@ const Toast = ({ children, id, toast_type, data } ) => {
   useEffect(() => {
     const timer = setTimeout(() => {
       removeToast(id);
-    }, 100000);
+    }, 7000);
 
     return () => {
       clearTimeout(timer);
@@ -29,7 +29,6 @@ const Toast = ({ children, id, toast_type, data } ) => {
 
      <>
         {(() => {
-//   console.log(type);
            switch (type) {
               case 'Created':
                   return (
@@ -43,7 +42,7 @@ const Toast = ({ children, id, toast_type, data } ) => {
                             </div>
                             <div className="toast_content">
                                 <p className="toast_type">Success!</p>
-                                <p className="toast_message" >We finish to check your url working hard to generet you a new URL with full content.</p>
+                                <p className="toast_message" >The new URL is ready!</p>
                             </div>
                            
                             <div className="toast_close" onClick={ handleremove }>
@@ -125,7 +124,6 @@ const Toast = ({ children, id, toast_type, data } ) => {
                     <div></div>
                   )
            }
-  
         })()}
     </>
   );
