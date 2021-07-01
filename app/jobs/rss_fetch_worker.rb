@@ -7,7 +7,7 @@ class RssFetchWorker
   def perform(rss_id)
     rss = Rss.find(rss_id)
     logger.info  "RssFetchWorker "
-    logger.info  rss.to_s()
+    logger.info  rss.to_s
     Rss.get_feed(rss)
   end
 end

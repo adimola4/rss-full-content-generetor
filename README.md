@@ -1,24 +1,11 @@
-# README
+<h2 align="center" style="color:#4c587e">RSS-full-content-generetor</h2>
+<p align="center"> Online tool to convert  rss feed link to full story rss feed.<p>
+<br/>
+<p>BackEnd: Ruby on rails.</p>
+<p>FrontEnd: React.</p>
+<p>AWS: S3.</p>
+<p>Deploy: Heroku.</p>
+<br/>
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
-
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+# Live Demo
+Here is a working live demo : [rss-full-content-generetor.herokuapp.com](https://rss-full-content-generetor.herokuapp.com/)

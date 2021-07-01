@@ -25,9 +25,9 @@ module Api::V1
 
       if @found_rss.empty?
         @rss = Rss.new(rss_params)
-        #!!! add generated url in the first user response. 
+        # !!! add generated url in the first user response.
         response = RssInitializer.new(@rss).run
-        if response.nil?          
+        if response.nil?
           render json: [{ "msg": "The url is not avalid RSS" }], status: :not_acceptable
           return
         end

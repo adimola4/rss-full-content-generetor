@@ -25,7 +25,7 @@ class RssInitializer
       return nil if img == "none" && desc == "0"
     end
 
-    title_to_file_name = title.gsub!(/[^0-9A-Za-z.]/, '') || @rss.title
+    title_to_file_name = title.gsub!(/[^0-9A-Za-z.]/, "") || @rss.title
     # generated_url = bucket_name + ".s3." + ENV["AWS_REGION"].to_s + ".amazonaws.com/rss_files" + title_to_file_name + ".xml"
     generated_url = @rss.initial_aws(title_to_file_name)
     @rss.attributes = {

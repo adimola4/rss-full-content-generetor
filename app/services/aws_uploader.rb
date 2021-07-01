@@ -19,17 +19,16 @@ class AwsUploader
     file = File.open(rss_location, "rb")
     @content = file.read
     @OBJkey = File.basename(rss_location.to_s)
-    @bucket_name = nil;
-    if Rails.env.production?
-      @bucket_name = ENV["AWS_PROD_BUCKET"].to_s
-    else
-      @bucket_name = ENV["AWS_DEV_BUCKET"].to_s
-    end
+    @bucket_name = nil
+    @bucket_name = if Rails.env.production?
+                     ENV["AWS_PROD_BUCKET"].to_s
+                   else
+                     ENV["AWS_DEV_BUCKET"].to_s
+                   end
     # bucket = @service.bucket(@bucket_name)
   end
 
   def run
-    
     # puts @service.list_buckets.methods
     list_buckets = []
     @service.list_buckets.buckets.each do |bucket|
@@ -37,14 +36,14 @@ class AwsUploader
     end
 
     if list_buckets.include?(@bucket_name)
-      
+
       response = @service.put_object(
         bucket: @bucket_name,
         key: @OBJkey,
         acl: "public-read",
         body: @content,
       )
-      
+
       if response.etag
         puts "Object '#{@OBJkey}' uploaded to bucket '#{@bucket_name}'."
         puts response.data

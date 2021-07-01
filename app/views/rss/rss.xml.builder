@@ -18,9 +18,8 @@ xml.rss version: "2.0" do
           xml.image_url article["image_url"]
         end
       end
-    else 
+    else
       xml.status "Coming soon ..."
     end
-
   end
 end
