@@ -57,7 +57,6 @@ module Api::V1
     end
 
     def ready
-      puts "is ready", params[:rss][:id]
       @rss = Rss.find(params[:rss][:id])
       data = if @rss.generated_url.nil? || @rss.generated_url == "en-us" || @rss.generated_url == "en"
                [{ "msg": "Not ready" }]

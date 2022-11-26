@@ -11,17 +11,13 @@ module Sidekiq
   end
 end
 
-schedule_file = "config/schedule.yml"
-Sidekiq.options[:poll_interval] = 10
-if File.exist?(schedule_file)
-  Sidekiq::Cron::Job.load_from_hash!(YAML.load_file(schedule_file))
-end
-
- 
-
-
 if Rails.env.development?
     Sidekiq.configure_server do |config|
+      schedule_file = "config/schedule.yml"
+      # Sidekiq.options[:poll_interval] = 10
+      if File.exist?(schedule_file)
+        Sidekiq::Cron::Job.load_from_hash!(YAML.load_file(schedule_file))
+      end
       config.redis = { url: 'redis://localhost:6379/0'}
     end
   

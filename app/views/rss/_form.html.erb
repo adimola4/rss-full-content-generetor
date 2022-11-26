@@ -1,0 +1,10 @@
+<%= form_for Rss.new, url: '/rss' do |f|%>
+  <div class="main-search-input-wrap">
+    <div class="main-search-input fl-wrap">
+      <div class="main-search-input-item">
+        <%= f.text_field :original_url, placeholder: "Enter rss url to get full content..."%><br/>
+      </div>  
+      <%= f.submit "go", class: "main-search-button"%>
+    </div>
+  </div>
+<% end %>

@@ -12,9 +12,7 @@ class PageParser
 
   def run
     return if @url.nil?
-
     @response = HTTParty.get(@url)
-    # puts @response.body, @response.code, @response.message, @response.headers.inspect
     @type = get_type
     case @type
     when "XML"

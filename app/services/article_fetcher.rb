@@ -17,7 +17,6 @@ class ArticleFetcher
     return if @article_url == ""
 
     @response = HTTParty.get(@article_url, follow_redirects: false)
-    # puts  @response.message, @response.headers.inspect
     @doc = Nokogiri::HTML(@response.to_s)
     clear_doc
     imgs = @doc.search("img")
@@ -46,11 +45,8 @@ class ArticleFetcher
         next if str.end_with?(temp_str)
 
         if temp_str.end_with?(".", ". ")
-          # p "ddddddd"
-          # p temp_str
-          # str += " "+t.to_s+t.parent.next.to_s.strip
           str += temp_str + " "
-        else # capitalized?(temp_str) == false
+        else
           str_hidden = t.parent.next.to_s.strip.gsub(%r{</?[^>]*>}, "")
           str += if str_hidden.strip.end_with?(".")
                    " " + temp_str + " " + str_hidden + " "
@@ -61,13 +57,9 @@ class ArticleFetcher
                      " " + temp_str + " " + str_hidden + " "
                             end
                  end
-            # p temp_str
           end
-        #  str += t.to_s.gsub("\n", "\n").gsub("\r", " ").gsub("\t", " ")
         i += 1
-
       else
-
         if t.to_s != " " && t.to_s.split.size == 1 && t.parent.next.to_s.strip != ""
           if @article_type == "FOX" || @article_type == "CNN"
 
@@ -81,10 +73,6 @@ class ArticleFetcher
     end
     @article_data["content"] = str
     @article_data
-    # puts str
-    # author_name
-    # full_html_content
-    # image_url
   end
 
   def clear_doc
@@ -117,11 +105,8 @@ class ArticleFetcher
       unless (@article_data["image_url"] == "" || item["content"].to_s.start_with?("http")) && (item.to_s["twitter:image"] == "twitter:image" || item.to_s["og:image"] == "og:image")
         next
       end
-      # if image_exists?(item['content'])
       return if @article_data["image_url"] != ""
-
       @article_data["image_url"] = item["content"]
-      # end
     end
   end
 

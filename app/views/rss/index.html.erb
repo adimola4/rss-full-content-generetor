@@ -1,0 +1,18 @@
+<section class="wrapper">
+  <div class="container">
+    <div class="row">
+      <div class="col text-center mb-5">
+        <h1 class="display-4">Rss full content</h1>
+        <p class="lead">Convert RSS URL to full content RSS URL. </p>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <%= render partial: 'rss/form'%>
+  <div>
+  <div class="row mt-5">
+    <%= render partial: 'rss/rss', collection: @rss_list, as: :rss %>
+  </div>
+</section>
+
+  

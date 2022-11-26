@@ -2,7 +2,6 @@
 
 class RssFetcher
   def initialize(rss)
-    puts "RssFetcher------"
     @rss = rss
     @doc = ""
   end
@@ -47,7 +46,6 @@ class RssFetcher
       # full_html_content
       # image_url
     end
-    # puts "feed---", @feed
     @feed
    end
 

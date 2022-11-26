@@ -7,12 +7,12 @@ Rails.application.routes.draw do
 
   namespace :api do
     namespace :v1 do
-      get "/rss", to: "rss#index"
-      post "/rss", to: "rss#create"
-      get "/rss/:id", to: "rss#show"
-      patch "/rss/:id", to: "rss#update"
-      delete "/rss/:id", to: "rss#destroy"
-      post "/rss/ready/", to: "rss#ready"
+      resources :rss do
+        post "ready", to: "rss#ready"
+      end
     end
+  end
+  resources :rss do
+    post "ready", to: "rss#ready"
   end
 end

@@ -1,0 +1,20 @@
+<div class="col-sm-12 col-md-6 col-lg-4 mb-4">
+  <div class="card text-white card-has-bg click-col" style="background-image:url('<%= rss.img_url%>');">
+    <div class="card-img-overlay d-flex flex-column">
+      <div class="card-body">
+        <%= link_to "#{url_with_protocol(rss.generated_url)}", class: "", target: "new" do %>
+          <small class='card-meta mb-2'><%= rss.title %></small>
+          <h4 class='card-title mt-0 '><%= rss.description %></h4>
+        <% end %>
+        <small><i class="far fa-clock"></i> <%= rss.created_at.strftime("%d/%m/%Y")%></small>
+      </div>
+      <div class="card-footer">
+        <div class="media">
+          <div class="media-body">
+            <%= link_to "original url", "#{url_with_protocol(rss.original_url)}", class: "my-0 text-white d-block", target: "new"%>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
