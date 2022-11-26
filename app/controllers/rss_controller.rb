@@ -7,7 +7,6 @@ class RssController < ApplicationController
 
     def index
       @rss_list = Rss.all
-      # raise @rss_list.inspect
     end
 
     def show
